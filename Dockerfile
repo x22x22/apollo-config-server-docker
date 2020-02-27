@@ -19,7 +19,6 @@ RUN \
 
 FROM openjdk:8-jre-alpine3.8
 
-COPY --from=Jar /tmp/apollo-configservice.jar ./apollo-configservice.jar 
 RUN \
   echo "http://mirrors.aliyun.com/alpine/v3.8/main" > /etc/apk/repositories && \
   echo "http://mirrors.aliyun.com/alpine/v3.8/community" >> /etc/apk/repositories && \
@@ -30,8 +29,9 @@ RUN \
   mkdir -p /apollo-config-server
 
 ADD . /apollo-config-server/
+COPY --from=Jar /tmp/apollo-configservice.jar /apollo-config-server/apollo-configservice.jar 
 
-RUN chmod 755 /apollo-portal-server/scripts/startup-kubernetes.sh
+RUN chmod 755 /apollo-config-server/scripts/startup-kubernetes.sh
 
 ENV APOLLO_CONFIG_SERVICE_NAME="service-apollo-config-server.sre"
 
