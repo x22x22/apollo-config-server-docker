@@ -31,6 +31,8 @@ RUN \
 
 ADD . /apollo-config-server/
 
+RUN chmod 755 /apollo-portal-server/scripts/startup-kubernetes.sh
+
 ENV APOLLO_CONFIG_SERVICE_NAME="service-apollo-config-server.sre"
 
 EXPOSE 8080
